@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-ivory: #F8F4EC;
+  --color-gold: #C8A96B;
+  --color-burgundy: #5C1F24;
+  --color-charcoal: #1E1E1E;
+  --color-beige: #E8DCCB;
+
+  /* Typography */
+  --font-primary: "Cormorant Garamond", serif;
+  --font-secondary: "Montserrat", sans-serif;
+}
+
+/* Global Luxury Resets */
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-secondary);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  font-weight: 400;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+/* ...existing imports and theme code... */
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@layer utilities {
+  /* Standard buttery fade-in for general pages */
+  .animate-fade-in {
+    animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  /* Royal Wedding Specific Animations */
+  .animate-royal-left {
+    opacity: 0;
+    animation: royalLeft 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  }
+  
+  .animate-royal-center {
+    opacity: 0;
+    animation: royalCenter 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  }
+  
+  .animate-royal-right {
+    opacity: 0;
+    animation: royalRight 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes royalLeft {
+  from { opacity: 0; transform: translate(-80px, 80px); }
+  to { opacity: 1; transform: translate(0, 0); }
+}
+
+@keyframes royalCenter {
+  /* Slight scale-up as it fades in gives a majestic reveal */
+  from { opacity: 0; transform: translateY(60px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes royalRight {
+  from { opacity: 0; transform: translate(80px, 80px); }
+  to { opacity: 1; transform: translate(0, 0); }
+}
+
+@layer utilities {
+  /* Add this right below your other animate classes */
+  .animate-pure-fade {
+    opacity: 0;
+    animation: pureFade 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+/* Add this keyframe at the very bottom */
+@keyframes pureFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- ROYAL SCROLLBAR --- */
+/* For Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gold) var(--color-charcoal);
+}
+
+/* For Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* The track (background) */
+::-webkit-scrollbar-track {
+  background: var(--color-charcoal);
+  border-left: 1px solid rgba(200, 169, 107, 0.1); /* Very subtle gold border */
+}
+
+/* The draggable thumb */
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-gold);
+  border-radius: 20px;
+  /* Adds a "padding" effect inside the track so the gold isn't touching the edges */
+  border: 3px solid var(--color-charcoal); 
+}
+
+/* The thumb hover state */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #B5965A; /* A slightly richer gold when interacting */
+}
