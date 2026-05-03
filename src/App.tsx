@@ -27,7 +27,6 @@ function Navbar() {
   const currentPath = location.pathname;
 
   // 2. Define which pages have a LIGHT background at the very top.
-  // We assume "/" (Home) and "/dining" have dark full-screen image heroes.
   const isLightPage = ["/rooms", "/weddings", "/about", "/contact"].includes(currentPath);
 
   // 3. Determine if the navbar should use the dark theme (either scrolled down OR on a light page)
@@ -35,11 +34,19 @@ function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    // Run once on mount to set initial state correctly
     handleScroll(); 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
 
   const links = [
     { name: "Rooms & Suites", path: "/rooms" },
@@ -50,125 +57,164 @@ function Navbar() {
   ];
 
   return (
-    <nav
-      className={`fixed w-full z-50 transition-all duration-500 ${
-        scrolled ? "bg-ivory/95 backdrop-blur-md shadow-sm py-4" : "bg-transparent py-6"
-      }`}
-    >
-      <div className="max-w-[1600px] w-full mx-auto px-6 md:px-12 lg:px-20 flex justify-between items-center">
-        {/* Logo - Dynamically shifts color based on theme */}
-        <Link to="/" className={`text-3xl font-primary tracking-widest uppercase transition-colors duration-500 ${useDarkTheme ? "text-burgundy" : "text-ivory drop-shadow-md"}`}>
-          The Ivory Ember
-        </Link>
-
-        {/* Desktop Links */}
-        <div className="hidden lg:flex items-center gap-8 text-sm tracking-[0.15em] uppercase font-medium">
-          {links.map((link) => {
-            const isActive = currentPath === link.path;
-            return (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`transition-colors duration-300 hover:text-gold ${
-                  isActive 
-                    ? "text-gold" // Active state color
-                    : useDarkTheme 
-                      ? "text-charcoal" 
-                      : "text-ivory/90 drop-shadow-sm"
-                }`}
-              >
-                {link.name}
-              </Link>
-            );
-          })}
-          
-          {/* Pill-shaped Premium Button */}
-          <Link
-            to="/rooms"
-            className={`px-8 py-3 rounded-full transition-all duration-500 border ${
-              useDarkTheme 
-                ? "bg-burgundy border-burgundy text-ivory hover:bg-charcoal hover:border-charcoal shadow-md" 
-                : "bg-transparent border-ivory/80 text-ivory hover:bg-ivory hover:text-charcoal backdrop-blur-sm"
-            }`}
-          >
-            Book a Stay
+    <>
+      <nav
+        className={`fixed w-full z-50 transition-all duration-500 ${
+          scrolled ? "bg-ivory/95 backdrop-blur-md shadow-sm py-4" : "bg-transparent py-6"
+        }`}
+      >
+        <div className="max-w-[1600px] w-full mx-auto px-6 md:px-12 lg:px-20 flex justify-between items-center">
+          {/* Logo - Dynamically shifts color based on theme */}
+          <Link to="/" className={`text-3xl font-primary tracking-widest uppercase transition-colors duration-500 ${useDarkTheme ? "text-burgundy" : "text-ivory drop-shadow-md"}`}>
+            The Ivory Ember
           </Link>
+
+          {/* Desktop Links */}
+          <div className="hidden lg:flex items-center gap-8 text-sm tracking-[0.15em] uppercase font-medium">
+            {links.map((link) => {
+              const isActive = currentPath === link.path;
+              return (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className={`transition-colors duration-300 hover:text-gold ${
+                    isActive 
+                      ? "text-gold" // Active state color
+                      : useDarkTheme 
+                        ? "text-charcoal" 
+                        : "text-ivory/90 drop-shadow-sm"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
+            
+            {/* Pill-shaped Premium Button */}
+            <Link
+              to="/rooms"
+              className={`px-8 py-3 rounded-full transition-all duration-500 border ${
+                useDarkTheme 
+                  ? "bg-burgundy border-burgundy text-ivory hover:bg-charcoal hover:border-charcoal shadow-md" 
+                  : "bg-transparent border-ivory/80 text-ivory hover:bg-ivory hover:text-charcoal backdrop-blur-sm"
+              }`}
+            >
+              Book a Stay
+            </Link>
+          </div>
+
+          {/* Mobile Menu Toggle - Only shows Hamburger (X is inside the full-screen menu) */}
+          <button 
+            className={`lg:hidden transition-colors duration-500 ${useDarkTheme ? "text-charcoal hover:text-gold" : "text-ivory drop-shadow-md hover:text-gold"}`} 
+            onClick={() => setIsOpen(true)}
+          >
+            <Menu size={32} />
+          </button>
+        </div>
+      </nav>
+
+      {/* --- UPGRADED: Full-Screen Royal Mobile Overlay --- */}
+      <div 
+        className={`fixed inset-0 bg-charcoal/95 backdrop-blur-xl z-[100] flex flex-col transition-all duration-700 ease-in-out lg:hidden ${
+          isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+        }`}
+      >
+        {/* Top bar inside the menu */}
+        <div className="w-full px-6 py-6 flex justify-between items-center">
+          <Link to="/" className="text-2xl font-primary tracking-widest uppercase text-gold" onClick={() => setIsOpen(false)}>
+            The Ivory Ember
+          </Link>
+          <button className="text-gold hover:text-ivory transition-colors duration-300" onClick={() => setIsOpen(false)}>
+            <X size={36} strokeWidth={1.5} />
+          </button>
         </div>
 
-        {/* Mobile Menu Toggle - dynamically colored */}
-        <button className={`lg:hidden ${useDarkTheme ? "text-charcoal" : "text-ivory drop-shadow-md"}`} onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-      </div>
-
-      {/* Mobile Menu Dropdown */}
-      {isOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-ivory shadow-lg flex flex-col items-center py-6 gap-6 text-sm tracking-widest uppercase border-t border-beige">
-          {links.map((link) => {
+        {/* Massive Editorial Links */}
+        <div className="flex-1 flex flex-col justify-center items-center gap-8">
+          {links.map((link, index) => {
              const isActive = currentPath === link.path;
              return (
               <Link
                 key={link.name}
                 to={link.path}
-                className={`transition-colors ${isActive ? "text-gold font-bold" : "text-charcoal hover:text-gold"}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+                className={`text-4xl sm:text-5xl font-primary tracking-widest uppercase transition-all duration-500 transform ${
+                  isOpen ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+                } ${isActive ? "text-gold" : "text-ivory hover:text-gold"}`}
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}
               </Link>
             );
           })}
+          
           <Link
             to="/rooms"
-            className="bg-burgundy text-ivory px-8 py-3 w-3/4 rounded-full text-center hover:bg-charcoal transition-colors shadow-md"
+            style={{ transitionDelay: `${links.length * 100}ms` }}
+            className={`mt-8 border border-gold text-gold px-12 py-4 rounded-full uppercase tracking-widest text-sm font-semibold hover:bg-gold hover:text-charcoal transition-all duration-500 transform ${
+              isOpen ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+            }`}
             onClick={() => setIsOpen(false)}
           >
-            Book a Stay
+            Reserve Your Stay
           </Link>
         </div>
-      )}
-    </nav>
+
+        {/* Elegant Bottom Heritage Stamp */}
+        <div className="pb-12 text-center">
+          <div className="w-12 h-[1px] bg-gold/50 mx-auto mb-6"></div>
+          <span className="text-gold/60 tracking-[0.3em] uppercase text-xs font-medium block">
+            A Sanctioned Legacy of Jaipur
+          </span>
+        </div>
+      </div>
+    </>
   );
 }
 
 function Footer() {
   return (
-    <footer className="bg-charcoal text-ivory pt-20 pb-8">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-16 text-center md:text-left border-b border-gray-700 pb-16">
+    <footer className="bg-charcoal text-ivory pt-24 pb-12">
+      {/* Upgraded Footer container to exactly match Navbar 1600px width and padding */}
+      <div className="max-w-[1600px] w-full mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 md:grid-cols-3 gap-16 text-center md:text-left border-b border-gold/20 pb-16">
+        
         {/* Brand */}
         <div className="space-y-6">
           <h2 className="text-3xl font-primary text-gold tracking-widest uppercase">The Ivory Ember</h2>
-          <p className="text-sm text-gray-400 max-w-sm mx-auto md:mx-0 leading-relaxed font-light">
+          <p className="text-sm text-ivory/70 max-w-sm mx-auto md:mx-0 leading-relaxed font-light tracking-wide">
             A luxury heritage destination in the heart of Jaipur. Experience timeless elegance, royal hospitality, and unforgettable moments.
           </p>
         </div>
 
         {/* Contact */}
-        <div className="space-y-6">
-          <h3 className="text-lg font-primary tracking-widest uppercase">Contact Us</h3>
-          <div className="flex flex-col gap-4 text-sm text-gray-400 items-center md:items-start font-light">
-            <span className="flex items-center gap-3"><MapPin size={18} className="text-gold" /> 1 Palace Road, Jaipur, Rajasthan</span>
-            <span className="flex items-center gap-3"><Phone size={18} className="text-gold" /> +91 98765 43210</span>
-            <span className="cursor-pointer hover:text-gold transition-colors">reservations@ivoryember.com</span>
+        <div className="space-y-8">
+          <h3 className="text-sm font-primary tracking-[0.2em] uppercase text-gold">Contact Us</h3>
+          <div className="flex flex-col gap-5 text-sm text-ivory/80 items-center md:items-start font-light">
+            <span className="flex items-center gap-4 hover:text-gold transition-colors cursor-pointer"><MapPin size={20} className="text-gold" /> 1 Palace Road, Jaipur, Rajasthan</span>
+            <span className="flex items-center gap-4 hover:text-gold transition-colors cursor-pointer"><Phone size={20} className="text-gold" /> +91 98765 43210</span>
+            <span className="cursor-pointer hover:text-gold transition-colors ml-9">reservations@ivoryember.com</span>
           </div>
         </div>
 
         {/* Newsletter - Minimalist Editorial Style */}
-        <div className="space-y-6">
-          <h3 className="text-lg font-primary tracking-widest uppercase">Exclusive Offers</h3>
-          <p className="text-sm text-gray-400 font-light">Join our society for seasonal privileges and private invitations.</p>
-          <div className="flex w-full mt-4 border-b border-gray-600 focus-within:border-gold transition-colors pb-2 group">
+        <div className="space-y-8">
+          <h3 className="text-sm font-primary tracking-[0.2em] uppercase text-gold">Exclusive Offers</h3>
+          <p className="text-sm text-ivory/70 font-light tracking-wide">Join our society for seasonal privileges and private invitations.</p>
+          <div className="flex w-full mt-4 border-b border-gold/30 focus-within:border-gold transition-colors pb-3 group">
             <input 
               type="email" 
               placeholder="Email Address" 
-              className="bg-transparent px-2 py-2 w-full text-sm focus:outline-none text-ivory placeholder-gray-500 font-light"
+              className="bg-transparent px-2 py-2 w-full text-sm focus:outline-none text-ivory placeholder-ivory/30 font-light tracking-wide"
             />
-            <button className="text-gold px-4 py-2 text-sm uppercase tracking-widest font-medium hover:text-ivory transition-colors">
+            <button className="text-gold px-4 py-2 text-sm uppercase tracking-[0.2em] font-medium hover:text-ivory transition-colors">
               Join
             </button>
           </div>
         </div>
+
       </div>
-      <div className="text-center text-xs text-gray-500 mt-10 uppercase tracking-widest font-light">
+
+      <div className="text-center text-xs text-ivory/40 mt-12 uppercase tracking-[0.2em] font-light">
         &copy; {new Date().getFullYear()} The Ivory Ember. All Rights Reserved.
       </div>
     </footer>
@@ -179,7 +225,7 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen relative">
         <Navbar />
         <main className="flex-grow">
           <Routes>
