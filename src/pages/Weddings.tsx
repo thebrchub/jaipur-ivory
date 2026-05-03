@@ -23,18 +23,18 @@ export default function Weddings() {
           
           {/* Left Wing - Sweeps in from bottom left */}
           <div className="overflow-hidden rounded-3xl shadow-xl h-80 md:h-[400px] group border-4 border-ivory outline outline-1 outline-gold/20 animate-royal-left">
-            <img src="images/wedding1.png" alt="Heritage Wedding" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
+            <img src="images/wedding1.webp" alt="Heritage Wedding" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
           </div>
           
           {/* Centerpiece - Majestic fade and scale up (delayed slightly) */}
           <div className="overflow-hidden rounded-t-[200px] md:rounded-t-[300px] rounded-b-3xl shadow-2xl h-[400px] md:h-[550px] md:-mt-16 relative z-20 group border-8 border-ivory outline outline-1 outline-gold/40 bg-charcoal animate-royal-center">
             <div className="absolute inset-0 bg-gold/10 z-10 group-hover:bg-transparent transition-colors duration-1000 pointer-events-none"></div>
-            <img src="images/wedding.png" alt="Wedding Details" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
+            <img src="images/wedding.webp" alt="Wedding Details" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
           </div>
           
           {/* Right Wing - Sweeps in from bottom right */}
           <div className="overflow-hidden rounded-3xl shadow-xl h-80 md:h-[400px] group border-4 border-ivory outline outline-1 outline-gold/20 animate-royal-right">
-            <img src="images/wedding3.png" alt="Royal Setup" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
+            <img src="images/wedding3.webp" alt="Royal Setup" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
           </div>
           
         </div>

@@ -43,16 +43,16 @@ const Reveal = ({ children, animationClass = "animate-pure-fade", delay = "0s", 
 
 export default function Home() {
   const suitesData = [
-    { name: "The Maharani Suite", img: "images/room3.png", price: "₹85,000" },
-    { name: "The Heritage Pavilion", img: "images/pavillion.png", price: "₹45,000" },
-    { name: "The Royal Chamber", img: "images/room4.png", price: "₹25,000" }
+    { name: "The Maharani Suite", img: "images/room3.webp", price: "₹85,000" },
+    { name: "The Heritage Pavilion", img: "images/pavillion.webp", price: "₹45,000" },
+    { name: "The Royal Chamber", img: "images/room4.webp", price: "₹25,000" }
   ];
 
   const instagramPosts = [
-    { img: "/images/sunset.png", caption: "Sunset views at Ember Rooftop." },
-    { img: "/images/heritage.png", caption: "Detailed heritage patterns." },
-    { img: "/images/wedding.png", caption: "A wedding at Ivory Gardens." },
-    { img: "/images/room.png", caption: "Your royal sanctuary awaits." },
+    { img: "/images/sunset.webp", caption: "Sunset views at Ember Rooftop." },
+    { img: "/images/heritage.webp", caption: "Detailed heritage patterns." },
+    { img: "/images/wedding.webp", caption: "A wedding at Ivory Gardens." },
+    { img: "/images/room.webp", caption: "Your royal sanctuary awaits." },
   ];
 
   const [isHeroLoaded, setIsHeroLoaded] = useState(false);
@@ -64,7 +64,7 @@ export default function Home() {
       <section className="relative h-screen flex items-center text-left bg-charcoal">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/ivory.png"
+            src="/images/ivory.webp"
             alt="The Ivory Ember Palace Courtyard"
             onLoad={() => setIsHeroLoaded(true)}
             className={`w-full h-full object-cover transition-all duration-[2000ms] ease-out transform ${
@@ -115,7 +115,7 @@ export default function Home() {
 
           {/* Image - Sweeps in from right */}
           <Reveal className="w-full lg:w-1/2 h-[500px] rounded-3xl overflow-hidden shadow-2xl relative" animationClass="animate-royal-right" delay="0.4s">
-            <img src="/images/archway.png" alt="Detailed Archway" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-out" />
+            <img src="/images/archway.webp" alt="Detailed Archway" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-out" />
             <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-charcoal/90 via-charcoal/60 to-transparent text-ivory text-sm tracking-widest font-light">
               [ Heritage Detail Shot - Our restored archways ]
             </div>
@@ -206,7 +206,7 @@ export default function Home() {
             </Reveal>
 
             <Reveal className="w-full lg:w-1/2 h-[500px] rounded-3xl overflow-hidden shadow-2xl relative" animationClass="animate-royal-right" delay="0.4s">
-                <img src="images/dine.png" alt="Dining View" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-out" />
+                <img src="images/dine.webp" alt="Dining View" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-out" />
             </Reveal>
             
         </div>
@@ -226,7 +226,7 @@ export default function Home() {
             </Reveal>
 
             <Reveal className="relative rounded-3xl overflow-hidden shadow-xl group h-[400px] md:h-auto border border-ivory/50" animationClass="animate-royal-right" delay="0.4s">
-                <img src="images/virtual.png" alt="Palace Room" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 ease-out" />
+                <img src="images/virtual.webp" alt="Palace Room" className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 ease-out" />
                 <div className="absolute inset-0 bg-charcoal/50 flex flex-col items-center justify-center text-center p-12 text-ivory transition-colors duration-500 group-hover:bg-charcoal/40">
                   <Star size={48} className="mb-6 text-gold"/>
                   <h3 className="text-4xl md:text-5xl font-primary font-light mb-8">Virtual Palace Tour</h3>

@@ -26,7 +26,7 @@ export default function About() {
           <div className="w-full h-[70vh] md:h-[85vh] rounded-t-[150px] md:rounded-t-[300px] rounded-b-3xl overflow-hidden shadow-2xl group border-8 border-ivory relative bg-charcoal flex flex-col justify-end">
             
             <img 
-              src="images/ivory.png" 
+              src="images/ivory.webp" 
               alt="Architecture" 
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out z-0" 
             />
@@ -73,7 +73,7 @@ export default function About() {
           {/* Grayscale image that reveals color on hover */}
           <div className="w-full lg:w-1/2 h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-xl group z-10 border border-ivory/50">
             <img 
-              src="images/sunset.png" 
+              src="images/sunset.webp" 
               alt="Details" 
               className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 ease-out group-hover:scale-105" 
             />

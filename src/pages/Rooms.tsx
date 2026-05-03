@@ -4,21 +4,21 @@ const rooms = [
   {
     name: "The Royal Chamber",
     price: "₹25,000",
-    image: "images/room4.png",
+    image: "images/room4.webp",
     description: "An intimate escape blending modern comforts with heritage aesthetics.",
     amenities: ["King Size Bed", "City View", "Freestanding Tub", "24/7 Butler"]
   },
   {
     name: "The Heritage Pavilion",
     price: "₹45,000",
-    image: "images/pavillion.png",
+    image: "images/pavillion.webp",
     description: "Expansive luxury featuring authentic Rajasthani textiles and a private balcony.",
     amenities: ["Private Balcony", "Lounge Area", "Premium Minibar", "Spa Access"]
   },
   {
     name: "The Maharani Suite",
     price: "₹85,000",
-    image: "images/room3.png",
+    image: "images/room3.webp",
     description: "Our crown jewel. A sprawling estate with panoramic city views and a private plunge pool.",
     amenities: ["Private Plunge Pool", "Dining Area", "Helipad Access", "Dedicated Chef"]
   }

@@ -29,7 +29,7 @@ export default function Dining() {
       {/* --- DINING PAGE CONTENT --- */}
       <section className="relative h-[70vh] flex items-center justify-center text-center">
         <div className="absolute inset-0 z-0">
-          <img src="images/dine.png" alt="Fine Dining" className="w-full h-full object-cover" />
+          <img src="images/dine.webp" alt="Fine Dining" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-charcoal/50"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-charcoal/80 via-transparent to-transparent h-48"></div>
         </div>
